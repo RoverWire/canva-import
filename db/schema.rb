@@ -48,6 +48,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_14_034320) do
     t.string "nice_category"
     t.integer "object_id"
     t.string "s3_key"
+    t.string "canva_design_id"
+    t.string "import_status", default: "waiting"
+    t.string "import_job_id"
+    t.string "export_status"
+    t.string "export_job_id"
+    t.text "export_url"
+    t.json "error_response"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
