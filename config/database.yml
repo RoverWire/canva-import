@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
+  username: <%= ENV.fetch('DATABASE_USER', 'root') %>
+  password: <%= ENV.fetch('DATABASE_PASS', '') %>
+  port: <%= ENV.fetch('DATABASE_PORT', 5432) %>
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: <%= ENV.fetch('DATABASE_NAME', 'canva_import') %>_dev
+
+test:
+  <<: *default
+  database: <%= ENV.fetch('DATABASE_NAME', 'canva_import') %>_test
+
+production:
+  <<: *default
+  database: <%= ENV.fetch('DATABASE_NAME', 'canva_import') %>
