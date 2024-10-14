@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_14_030852) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_14_034320) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,6 +18,36 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_14_030852) do
     t.text "canva_auth_code"
     t.text "canva_access_token"
     t.text "canva_refresh_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "templates", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.boolean "is_elements", default: false
+    t.json "stage_tags"
+    t.json "device_tags"
+    t.json "model_tags"
+    t.json "bundle_tags"
+    t.json "gender_tags"
+    t.json "age_tags"
+    t.json "ethnicity_tags"
+    t.json "color_tags"
+    t.json "invisible_tags"
+    t.integer "category_id"
+    t.string "category_name"
+    t.boolean "is_published", default: false
+    t.string "template_type"
+    t.string "seo_title"
+    t.text "stage_description"
+    t.text "meta_description"
+    t.integer "image_type_id"
+    t.integer "custom_template_id"
+    t.string "smart_template_id"
+    t.string "smart_template_preset_id"
+    t.string "nice_category"
+    t.integer "object_id"
+    t.string "s3_key"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
