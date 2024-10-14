@@ -12,9 +12,9 @@ development:
   <<: *default
   database: <%= ENV.fetch('DATABASE_NAME', 'canva_import') %>_dev
 
-test:
-  <<: *default
-  database: <%= ENV.fetch('DATABASE_NAME', 'canva_import') %>_test
+# test:
+#   <<: *default
+#   database: <%= ENV.fetch('DATABASE_NAME', 'canva_import') %>_test
 
 production:
   <<: *default
