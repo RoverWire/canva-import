@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.2.1'
 
+gem 'pg', '~> 1.5', '>= 1.5.8'
 gem 'sinatra', '~> 4.0'
 gem 'sinatra-activerecord', '~> 2.0', '>= 2.0.9'
 gem 'rackup', '~> 2.1'
