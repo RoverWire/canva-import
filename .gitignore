@@ -1,0 +1,4 @@
+templates
+tmp
+.env
+.DS_Store
