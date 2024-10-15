@@ -1,30 +1,30 @@
 module Canva
   class Token < Base
+    attr_reader :authorization
+    attr_reader :content_type
+
     def initialize
       super
       load_configuration_values
-      @url = URI('https://api.canva.com/rest/v1/oauth/token')
+      config_url('/v1/oauth/token')
+
+      @authorization = authorization_header
+      @content_type = 'application/x-www-form-urlencoded'
     end
 
     def generate
-      http = ::Net::HTTP.new(url.host, url.port)
-      http.use_ssl = true
-
       request = ::Net::HTTP::Post.new(url)
-      request['Authorization'] = "Basic #{api_credentials}"
-      request['Content-Type'] = 'application/x-www-form-urlencoded'
+      request['Authorization'] = authorization
+      request['Content-Type'] = content_type
       request.body = body_generate
 
       http.request(request)
     end
 
     def refresh
-      http = ::Net::HTTP.new(url.host, url.port)
-      http.use_ssl = true
-
       request = ::Net::HTTP::Post.new(url)
-      request['Authorization'] = "Basic #{api_credentials}"
-      request['Content-Type'] = 'application/x-www-form-urlencoded'
+      request['Authorization'] = authorization
+      request['Content-Type'] = content_type
       request.body = body_refresh
 
       http.request(request)

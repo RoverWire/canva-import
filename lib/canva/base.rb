@@ -6,9 +6,12 @@ module Canva
     attr_reader :client_id
     attr_reader :client_secret
     attr_reader :code_verifier
+    attr_reader :http
     attr_reader :redirect_uri
     attr_reader :refresh_token
     attr_reader :url
+
+    API_BASE_URL = 'https://api.canva.com/rest'.freeze
 
     def initialize
       @app_scope = ENV.fetch('CANVA_APP_SCOPE')
@@ -20,11 +23,21 @@ module Canva
 
     protected
 
+    def config_url(url)
+      @url = URI("#{API_BASE_URL}#{url}")
+      @http = ::Net::HTTP.new(@url.host, @url.port)
+      @http.use_ssl = true
+    end
+
     def load_configuration_values
       record = Configuration.first
       @access_token = record.canva_access_token
       @auth_code = record.canva_auth_code
       @refresh_token = record.canva_refresh_token
+    end
+
+    def authorization_header
+      "Basic #{api_credentials}"
     end
 
     def api_credentials

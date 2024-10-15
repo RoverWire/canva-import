@@ -2,8 +2,6 @@ require 'dotenv/load'
 require 'sinatra'
 require 'sinatra/activerecord'
 require './lib/canva'
-require 'json'
-require 'pry'
 
 set :environment, :development
 set :bind, '0.0.0.0'
