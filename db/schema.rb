@@ -14,7 +14,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_14_034320) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "configurations", id: false, force: :cascade do |t|
+  create_table "configurations", force: :cascade do |t|
     t.text "canva_auth_code"
     t.text "canva_access_token"
     t.text "canva_refresh_token"
