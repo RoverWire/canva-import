@@ -4,6 +4,7 @@ module Canva
 
     def initialize
       super
+      process_code_challenge
     end
 
     def generate
