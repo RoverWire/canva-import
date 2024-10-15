@@ -1,11 +1,7 @@
 require 'dotenv/load'
 require 'sinatra'
 require 'sinatra/activerecord'
-require 'base64'
-require 'digest'
-require 'uri'
-require './lib/canva/auth_url'
-require './lib/models'
+require './lib/canva'
 require 'pry'
 
 set :environment, :development

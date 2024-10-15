@@ -1,16 +1,9 @@
 module Canva
-  class AuthUrl
-    attr_reader :app_scope
-    attr_reader :client_id
+  class AuthUrl < Base
     attr_reader :code_challenge
-    attr_reader :code_verifier
-    attr_reader :redirect_uri
 
     def initialize
-      @app_scope = ENV.fetch('CANVA_APP_SCOPE')
-      @client_id = ENV.fetch('CANVA_CLIENT_ID')
-      @code_verifier = ENV.fetch('CANVA_CODE_VERIFIER')
-      @redirect_uri = ENV.fetch('CANVA_REDIRECT_URI')
+      super
     end
 
     def generate
