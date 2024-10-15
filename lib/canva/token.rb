@@ -7,10 +7,10 @@ module Canva
     end
 
     def generate
-      http = Net::HTTP.new(url.host, url.port)
+      http = ::Net::HTTP.new(url.host, url.port)
       http.use_ssl = true
 
-      request = Net::HTTP::Post.new(url)
+      request = ::Net::HTTP::Post.new(url)
       request['Authorization'] = "Basic #{api_credentials}"
       request['Content-Type'] = 'application/x-www-form-urlencoded'
       request.body = body_generate
@@ -19,10 +19,10 @@ module Canva
     end
 
     def refresh
-      http = Net::HTTP.new(url.host, url.port)
+      http = ::Net::HTTP.new(url.host, url.port)
       http.use_ssl = true
 
-      request = Net::HTTP::Post.new(url)
+      request = ::Net::HTTP::Post.new(url)
       request['Authorization'] = "Basic #{api_credentials}"
       request['Content-Type'] = 'application/x-www-form-urlencoded'
       request.body = body_refresh

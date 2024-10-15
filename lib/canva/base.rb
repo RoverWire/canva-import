@@ -22,8 +22,8 @@ module Canva
 
     def load_configuration_values
       record = Configuration.first
-      @access_token = record.access_token
-      @auth_code = record.auth_code
+      @access_token = record.canva_access_token
+      @auth_code = record.canva_auth_code
       @refresh_token = record.canva_refresh_token
     end
 
