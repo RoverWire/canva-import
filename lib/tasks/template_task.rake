@@ -42,6 +42,8 @@ namespace :template do
       template.import_job_id = body['job']['id']
       template.canva_design_id = body['job']['result']['designs'][0]['id'] if body['job']['status'] == 'success'
 
+      template.error_response = response.body if body['job']['status'] == 'failed'
+
       template.save!
       sleep 1
     end
