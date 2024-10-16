@@ -1,5 +1,5 @@
 module Canva
-  class ImportJob < Base
+  class Import < Base
     def initialize
       super
       load_configuration_values

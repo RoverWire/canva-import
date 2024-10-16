@@ -2,7 +2,7 @@ namespace :template do
   desc 'Upload templates to canva in batches'
   task :upload do
     s3_client = S3Client.new
-    canva_import = Canva::ImportJob.new
+    canva_import = Canva::Import.new
 
     Template.where(import_status: 'waiting').limit(5).find_each do |template|
       tmp_file = "./tmp/#{template.id}.psd"
@@ -30,7 +30,7 @@ namespace :template do
 
   desc 'Get and update the import job status'
   task :status do
-    canva_import = Canva::ImportJob.new
+    canva_import = Canva::Import.new
 
     Template.where(import_status: 'in_progress').limit(5).find_each do |template|
       response = canva_import.get(template.import_job_id)
