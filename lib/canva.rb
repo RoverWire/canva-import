@@ -8,6 +8,7 @@ require 'uri'
 
 require_relative './canva/base'
 require_relative './canva/auth_url'
+require_relative './canva/export'
 require_relative './canva/folder'
 require_relative './canva/import'
 require_relative './canva/token'
