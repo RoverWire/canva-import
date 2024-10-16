@@ -36,8 +36,12 @@ module Canva
       @refresh_token = record.canva_refresh_token
     end
 
-    def authorization_header
+    def authorization_basic
       "Basic #{api_credentials}"
+    end
+
+    def authorization_bearer
+      "Bearer #{access_token}"
     end
 
     def api_credentials

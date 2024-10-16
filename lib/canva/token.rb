@@ -8,7 +8,7 @@ module Canva
       load_configuration_values
       config_url('/v1/oauth/token')
 
-      @authorization = authorization_header
+      @authorization = authorization_basic
       @content_type = 'application/x-www-form-urlencoded'
     end
 
