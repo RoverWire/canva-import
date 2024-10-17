@@ -6,7 +6,7 @@ ARG BUNDLER_VERSION=2.5.7
 ENV RUBYOPT="-W0"
 
 RUN apk update && apk upgrade && apk add --no-cache \
-build-base libpq-dev bash \
+build-base libpq-dev openrc bash \
 && rm -rf /var/cache/apk/*
 
 WORKDIR /app
