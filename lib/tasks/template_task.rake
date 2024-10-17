@@ -1,17 +1,30 @@
 namespace :template do
-  desc 'Upload templates to canva in batches'
-  task :upload do
-    # Time frame if token refresh
-    sleep 2
-
+  desc 'Download templates to prepare upload'
+  task :download do
     s3_client = S3Client.new
-    canva_import = Canva::Import.new
 
     Template.where(import_status: 'waiting').limit(5).find_each do |template|
       tmp_file = "./tmp/#{template.id}.psd"
       s3_file = "#{template.s3_key}document_0.psd"
 
-      next unless s3_client.download_file(s3_file, tmp_file)
+      if s3_client.download_file(s3_file, tmp_file)
+        template.import_status = 'downloaded'
+        template.save!
+      end
+    end
+  end
+
+  desc 'Upload templates to canva in batches'
+  task :upload do
+    # Time frame if token refresh
+    sleep 2
+
+    canva_import = Canva::Import.new
+
+    Template.where(import_status: 'downloaded').limit(5).find_each do |template|
+      tmp_file = "./tmp/#{template.id}.psd"
+
+      next unless File.file?(tmp_file)
 
       response = canva_import.create(tmp_file, template.id.to_s)
 
@@ -26,6 +39,7 @@ namespace :template do
       end
       
       template.save!
+
       File.delete(tmp_file)
     end
   end
