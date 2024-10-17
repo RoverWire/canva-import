@@ -1,5 +1,5 @@
 cron-clear:
-	docker exec canva-import-ruby crontab -r
+	docker exec canva-import-ruby whenever -c
 
 cron-list:
 	docker exec canva-import-ruby crontab -l
@@ -9,6 +9,9 @@ cron-start:
 
 cron-update:
 	docker exec canva-import-ruby whenever -i
+
+cron-write:
+	docker exec canva-import-ruby whenever -w
 
 db-setup:
 	docker exec canva-import-ruby rake db:setup
