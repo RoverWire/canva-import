@@ -37,6 +37,7 @@ every '*/2 * * * *' do
   rake 'template:status'
 end
 
+# Every third minute
 every '*/3 * * * *' do
   rake 'folder:move'
 end
