@@ -22,18 +22,21 @@
 job_type :rake, "cd :path && rake :task --silent :output"
 set :output, { error: '/app/tmp/error.log', standard: '/app/tmp/standard.log' }
 
-every 3.hours do
+# Every 3 hours
+every '0 */3 * * *' do
   rake 'token:refresh'
 end
 
-every 1.minute do
+# Every minute
+every '* * * * *' do
   rake 'template:upload'
 end
 
-every 2.minute do
+# Every second minute
+every '*/2 * * * *' do
   rake 'template:status'
 end
 
-every 3.minute do
+every '*/3 * * * *' do
   rake 'folder:move'
 end
