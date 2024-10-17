@@ -1,10 +1,13 @@
 namespace :template do
   desc 'Upload templates to canva in batches'
   task :upload do
+    # Time frame if token refresh
+    sleep 5
+
     s3_client = S3Client.new
     canva_import = Canva::Import.new
 
-    Template.where(import_status: 'waiting').limit(5).find_each do |template|
+    Template.where(import_status: 'waiting').limit(20).find_each do |template|
       tmp_file = "./tmp/#{template.id}.psd"
       s3_file = "#{template.s3_key}document_0.psd"
 
@@ -24,15 +27,17 @@ namespace :template do
       
       template.save!
       File.delete(tmp_file)
-      sleep 1
     end
   end
 
   desc 'Get and update the import job status'
   task :status do
+    # Time frame if token refresh
+    sleep 5
+
     canva_import = Canva::Import.new
 
-    Template.where(import_status: 'in_progress').limit(5).find_each do |template|
+    Template.where(import_status: 'in_progress').limit(60).find_each do |template|
       response = canva_import.get(template.import_job_id)
 
       next unless response.code == '200'
@@ -45,7 +50,7 @@ namespace :template do
       template.error_response = response.body if body['job']['status'] == 'failed'
 
       template.save!
-      sleep 1
+      sleep(0.5)
     end
   end
 end
