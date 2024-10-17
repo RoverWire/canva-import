@@ -29,6 +29,11 @@ end
 
 # Every minute
 every '* * * * *' do
+  rake 'template:download'
+end
+
+# Every minute
+every '* * * * *' do
   rake 'template:upload'
 end
 
