@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:17.0-alpine
+    container_name: canva-import-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASS}
+  
+  adminer:
+    image: adminer
+    container_name: canva-import-adminer
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+
+  app:
+    container_name: canva-import-ruby
+    build: .
+    stdin_open: true
+    tty: true
+    tmpfs:
+    - /tmp
+    - /app/tmp/pids
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    env_file: .env
+    environment:
+      RAILS_ENV: ${RAILS_ENV}
+      HISTFILE: /usr/local/hist/.bash_history
+      IRB_HISTFILE: /usr/local/hist/.irb_history
+      EDITOR: vi
+      RUBY_VERSION: 3.2.1-alpine
+      BUNDLER_VERSION: 2.5.7
+    depends_on:
+      - postgres
