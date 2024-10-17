@@ -2,12 +2,12 @@ namespace :template do
   desc 'Upload templates to canva in batches'
   task :upload do
     # Time frame if token refresh
-    sleep 5
+    sleep 2
 
     s3_client = S3Client.new
     canva_import = Canva::Import.new
 
-    Template.where(import_status: 'waiting').limit(20).find_each do |template|
+    Template.where(import_status: 'waiting').limit(5).find_each do |template|
       tmp_file = "./tmp/#{template.id}.psd"
       s3_file = "#{template.s3_key}document_0.psd"
 
