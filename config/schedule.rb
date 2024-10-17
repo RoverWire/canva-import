@@ -18,3 +18,22 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+
+job_type :rake, "cd :path && rake :task --silent :output"
+set :output, { error: '/app/tmp/error.log', standard: '/app/tmp/standard.log' }
+
+every 3.hours do
+  rake 'token:refresh'
+end
+
+every 1.minute do
+  rake 'template:upload'
+end
+
+every 2.minute do
+  rake 'template:status'
+end
+
+every 3.minute do
+  rake 'folder:move'
+end
