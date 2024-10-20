@@ -30,6 +30,16 @@ helpers do
 
     Configuration.first.update!(canva_access_token: body['access_token'], canva_refresh_token: body['refresh_token'])
   end
+
+  def get_stats
+    @remaining = Template.where(import_status: 'waiting').count()
+    @downloaded = Template.where(import_status: 'downloaded').count()
+    @uploading = Template.where("import_status LIKE 'taked%'").count()
+    @in_progress = Template.where(import_status: 'in_progress').count()
+    @success = Template.where(import_status: 'success').count()
+    @completed = Template.where(import_status: 'completed').count()
+    @failed = Template.where(import_status: 'failed').count()
+  end
 end
 
 ##### Routes ######
@@ -40,6 +50,11 @@ get '/' do
   redirect '/token' if params[:code] && update_code(params[:code])
 
   erb :index
+end
+
+get '/dashboard' do
+  get_stats
+  erb :dashboard
 end
 
 get '/auth' do

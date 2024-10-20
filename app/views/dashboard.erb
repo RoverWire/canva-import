@@ -1,0 +1,60 @@
+<div class="container">
+  <h1>Dashboard</h1>
+  <hr>
+  <p>&nbsp;</p>
+</div>
+<div class="container overflow-hidden px-4 text-center">
+  <h2>Upload Monitor</h2>
+  <p>&nbsp;</p>
+  <div class="row gx-5">
+    <div class="col">
+      <div class="p-3 alert alert-light">
+        <strong>Remaining</strong> <br>
+        <%= @remaining%>
+      </div>
+    </div>
+    <div class="col">
+      <div class="p-3 alert alert-light">
+        <strong>Downloaded</strong> <br>
+        <%= @downloaded%>
+      </div>
+    </div>
+    <div class="col">
+      <div class="p-3 alert alert-primary">
+        <strong>Uploading</strong> <br>
+        <%= @uploading%>
+      </div>
+    </div>
+    <div class="col">
+      <div class="p-3 alert alert-light">
+        <strong>In Process</strong> <br>
+        <%= @in_progress%>
+      </div>
+    </div>
+  </div>
+  <div class="row gx-5">
+    <div class="col">
+      <div class="p-3 alert alert-light">
+        <strong>Moving to Folder</strong> <br>
+        <%= @success%>
+      </div>
+    </div>
+    <div class="col">
+      <div class="p-3 alert alert-success">
+        <strong>Completed</strong> <br>
+        <%= @completed%>
+      </div>
+    </div>
+    <div class="col">
+      <div class="p-3 alert alert-danger">
+        <strong>Failed</strong> <br>
+        <%= @failed%>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  setTimeout(function(){
+   window.location.reload(1);
+}, 60000);
+</script>
