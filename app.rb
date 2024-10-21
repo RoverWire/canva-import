@@ -32,13 +32,18 @@ helpers do
   end
 
   def get_stats
-    @remaining = Template.where(import_status: 'waiting').count()
-    @downloaded = Template.where(import_status: 'downloaded').count()
-    @uploading = Template.where("import_status LIKE 'taked%'").count()
-    @in_progress = Template.where(import_status: 'in_progress').count()
-    @success = Template.where(import_status: 'success').count()
-    @completed = Template.where(import_status: 'completed').count()
-    @failed = Template.where(import_status: 'failed').count()
+    counters = { completed: 0, downloaded: 0, failed: 0, in_progress: 0, success: 0, waiting: 0, uploading: 0 }
+    results = Template.select('import_status, COUNT(id) AS total').group(:import_status)
+
+    results.each do |row|
+      if row.import_status.include? 'taked '
+        counters[:uploading] += row.total
+      else
+        counters[row.import_status.to_sym] += row.total
+      end
+    end
+
+    counters
   end
 end
 
@@ -53,7 +58,7 @@ get '/' do
 end
 
 get '/dashboard' do
-  get_stats
+  @counters = get_stats
   erb :dashboard
 end
 
