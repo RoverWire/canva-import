@@ -34,7 +34,7 @@ end
 
 # Every minute
 every '* * * * *' do
-  rake 'template:upload'
+  rake '-m template:upload'
 end
 
 # Every second minute
