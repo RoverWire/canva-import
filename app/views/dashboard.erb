@@ -8,7 +8,7 @@
   <p>&nbsp;</p>
   <div class="row gx-5">
     <div class="col">
-      <div class="p-3 alert alert-light">
+      <div class="p-3 alert alert-info">
         <strong>Remaining</strong> <br>
         <%= @counters[:waiting]%>
       </div>
@@ -26,15 +26,15 @@
       </div>
     </div>
     <div class="col">
-      <div class="p-3 alert alert-light">
-        <strong>In Process</strong> <br>
+      <div class="p-3 alert alert-warning">
+        <strong>In Progress</strong> <br>
         <%= @counters[:in_progress]%>
       </div>
     </div>
   </div>
   <div class="row gx-5">
     <div class="col">
-      <div class="p-3 alert alert-light">
+      <div class="p-3 alert alert-dark">
         <strong>Moving to Folder</strong> <br>
         <%= @counters[:success]%>
       </div>
