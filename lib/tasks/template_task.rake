@@ -2,14 +2,15 @@ namespace :template do
   desc 'Download templates to prepare upload'
   task :download do
     s3_client = S3Client.new
+    import_device = ENV.fetch('DEVICE_NAME')
 
     Template.where(import_status: 'waiting').where("size < ?", 15).limit(5).find_each do |template|
       tmp_file = "./tmp/#{template.id}.psd"
       s3_file = "#{template.s3_key}document_0.psd"
 
       if s3_client.download_file(s3_file, tmp_file)
-        template.import_status = 'downloaded'
-        template.save!
+        params = { import_status: 'downloaded', import_device: }
+        template.update!(params)
       end
     end
   end
