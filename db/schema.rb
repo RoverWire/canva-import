@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_22_162718) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_23_183927) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,5 +60,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_22_162718) do
     t.float "size", default: 0.0
     t.string "canva_folder_id"
     t.string "canva_folder_name"
+    t.string "import_device"
+    t.string "export_device"
+    t.index ["canva_design_id"], name: "index_templates_on_canva_design_id", unique: true
+    t.index ["canva_folder_id"], name: "index_templates_on_canva_folder_id"
+    t.index ["export_device"], name: "index_templates_on_export_device"
+    t.index ["export_status"], name: "index_templates_on_export_status"
+    t.index ["import_device"], name: "index_templates_on_import_device"
+    t.index ["import_status"], name: "index_templates_on_import_status"
+    t.index ["size"], name: "index_templates_on_size"
   end
 end
