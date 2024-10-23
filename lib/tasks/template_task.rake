@@ -3,7 +3,7 @@ namespace :template do
   task :download do
     s3_client = S3Client.new
 
-    Template.where(import_status: 'waiting').limit(5).find_each do |template|
+    Template.where(import_status: 'waiting').where("size < ?", 15).limit(5).find_each do |template|
       tmp_file = "./tmp/#{template.id}.psd"
       s3_file = "#{template.s3_key}document_0.psd"
 
@@ -19,9 +19,15 @@ namespace :template do
     # Time frame if token refresh
     sleep 2
 
+    random = Random.alphanumeric
+    batch_size = 5
+    Template.where(import_status: 'downloaded')
+            .limit(batch_size)
+            .update_all(import_status: "taked #{random}")
+    
     canva_import = Canva::Import.new
 
-    Template.where(import_status: 'downloaded').limit(5).find_each do |template|
+    Template.where(import_status:  "taked #{random}").limit(batch_size).find_each do |template|  
       tmp_file = "./tmp/#{template.id}.psd"
 
       next unless File.file?(tmp_file)
@@ -47,7 +53,7 @@ namespace :template do
   desc 'Get and update the import job status'
   task :status do
     # Time frame if token refresh
-    sleep 5
+    sleep 2
 
     canva_import = Canva::Import.new
 
@@ -61,10 +67,9 @@ namespace :template do
       template.import_job_id = body['job']['id']
       template.canva_design_id = body['job']['result']['designs'][0]['id'] if body['job']['status'] == 'success'
 
-      template.error_response = response.body if body['job']['status'] == 'failed'
+      template.error_response = body if body['job']['status'] == 'failed'
 
       template.save!
-      sleep(0.5)
     end
   end
 end
