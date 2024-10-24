@@ -1,5 +1,4 @@
 class DownloadService < ApplicationService
-  attr_reader :batch_size
   attr_reader :file_size_limit
   attr_reader :import_device
   

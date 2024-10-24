@@ -1,5 +1,4 @@
 class UploadService < ApplicationService
-  attr_reader :batch_size
   attr_reader :import_device
   attr_reader :random_string
 
