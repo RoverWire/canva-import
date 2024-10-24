@@ -14,3 +14,6 @@ require_relative './canva/import'
 require_relative './canva/token'
 require_relative './models'
 require_relative './s3_client'
+
+require_relative '../app/services/application_service'
+require_relative '../app/services/download_service'
