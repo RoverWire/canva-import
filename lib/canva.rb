@@ -17,3 +17,4 @@ require_relative './s3_client'
 
 require_relative '../app/services/application_service'
 require_relative '../app/services/download_service'
+require_relative '../app/services/upload_service'

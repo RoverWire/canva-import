@@ -3,10 +3,10 @@ class DownloadService < ApplicationService
   attr_reader :file_size_limit
   attr_reader :import_device
   
-  def initialize(batch_size = 5, size_limit = 100, device_name = nil)
+  def initialize(batch_size = 5, size_limit = 100)
+    super
     @batch_size = batch_size
     @file_size_limit = size_limit
-    @import_device = device_name.nil? ? ENV.fetch('DEVICE_NAME') : device_name
   end
 
   def call
