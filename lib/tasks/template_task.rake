@@ -1,15 +1,16 @@
 namespace :template do
   desc 'Download templates to prepare upload'
-  task :download do
-    DownloadService.call(5, 15)
+  task :download, [:batch_size, :max_size] do |task, args|
+    args.with_defaults(batch_size: 5, max_size: 30)
+    DownloadService.call(args[:batch_size], args[:max_size])
   end
 
-  desc 'Upload templates to canva in batches'
-  task :upload do
+  desc 'Upload templates to canva in a batch'
+  task :upload, [:batch_size] do |task, args|
     # Time frame if token refresh
     sleep 2
-
-    UploadService.call(5)
+    args.with_defaults(batch_size: 5)
+    UploadService.call(args[:batch_size])
   end
 
   desc 'Get and update the status of import jobs from this device'
