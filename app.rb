@@ -38,6 +38,8 @@ helpers do
     results.each do |row|
       if row.import_status.include? 'taked '
         counters[:uploading] += row.total
+      elsif row.import_status == 'downloading'
+        counters[:downloaded] += row.total
       else
         counters[row.import_status.to_sym] += row.total
       end
