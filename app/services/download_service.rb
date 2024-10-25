@@ -1,11 +1,13 @@
 class DownloadService < ApplicationService
   attr_reader :file_size_limit
   attr_reader :import_device
+  attr_reader :record_id
   
-  def initialize(batch_size = 5, size_limit = 100)
+  def initialize(batch_size = 5, size_limit = 100, id = nil)
     super
     @batch_size = batch_size
     @file_size_limit = size_limit
+    @record_id = id
   end
 
   def call
@@ -18,7 +20,7 @@ class DownloadService < ApplicationService
   def mark_rows
     params = { import_status: 'downloading', import_device: }
 
-    Template.where("import_status = ? AND size < ?", 'waiting', file_size_limit)
+    Template.where(condition_array)
             .limit(batch_size)
             .update_all(params)
   end
@@ -35,5 +37,12 @@ class DownloadService < ApplicationService
         template.update!(params)
       end
     end
+  end
+
+  def condition_array
+    return ["import_status = ? AND size < ?", 'waiting', file_size_limit] unless record_id
+
+    @batch_size = 1
+    ["id = ?", record_id]
   end
 end
