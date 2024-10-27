@@ -12,7 +12,7 @@ class FolderMoveItemService < ApplicationService
 
   def call
     canva_folder = Canva::Folder.new
-    Template.where(condition_array).limit(80).find_each do |template|
+    Template.where(condition_array).limit(80).each do |template|
       response = canva_folder.move_item(template.canva_design_id, canva_folder_id)
 
       if response.code == '204'

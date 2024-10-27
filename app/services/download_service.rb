@@ -28,7 +28,7 @@ class DownloadService < ApplicationService
   def download_files
     s3_client = S3Client.new
 
-    Template.where("import_status = ? AND import_device = ?", 'downloading', import_device).find_each do |template|
+    Template.where("import_status = ? AND import_device = ?", 'downloading', import_device).limit(batch_size).each do |template|
       tmp_file = "./tmp/#{template.id}.psd"
       s3_file = "#{template.s3_key}document_0.psd"
 

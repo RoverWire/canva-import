@@ -9,7 +9,7 @@ class StatusService < ApplicationService
 
   def call
     canva_import = Canva::Import.new
-    Template.where(condition_array).limit(batch_size).find_each do |template|
+    Template.where(condition_array).limit(batch_size).each do |template|
       response = canva_import.get(template.import_job_id)
       next unless response.code == '200'
 

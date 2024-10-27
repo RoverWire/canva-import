@@ -24,7 +24,7 @@ class UploadService < ApplicationService
   def upload_files
     canva_import = Canva::Import.new
 
-    Template.where("import_status = ?", "taked #{random_string}").limit(batch_size).find_each do |template|
+    Template.where("import_status = ?", "taked #{random_string}").limit(batch_size).each do |template|
       tmp_file = "./tmp/#{template.id}.psd"
       next unless File.file?(tmp_file)
 
