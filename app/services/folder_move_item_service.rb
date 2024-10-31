@@ -4,6 +4,7 @@ class FolderMoveItemService < ApplicationService
   attr_reader :check_all
 
   def initialize(batch_size = 80, check_all = false)
+    super
     @batch_size = batch_size
     @canva_folder_id = ENV.fetch('CANVA_FOLDER_ID')
     @canva_folder_name = ENV.fetch('CANVA_FOLDER_NAME')
