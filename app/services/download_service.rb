@@ -40,7 +40,7 @@ class DownloadService < ApplicationService
   end
 
   def condition_array
-    return ["import_status = ? AND size < ?", 'waiting', file_size_limit] unless record_id
+    return ["import_status = ? AND size <= ?", 'waiting', file_size_limit] unless record_id
 
     @batch_size = 1
     ["id = ?", record_id]
