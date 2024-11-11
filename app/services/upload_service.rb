@@ -1,5 +1,4 @@
 class UploadService < ApplicationService
-  attr_reader :import_device
   attr_reader :random_string
 
   def initialize(batch_size = 5)
@@ -16,7 +15,7 @@ class UploadService < ApplicationService
   private
 
   def mark_rows
-    Template.where("import_status = ? AND import_device = ?", 'downloaded', import_device)
+    Template.where("import_status = ? AND import_device = ?", 'downloaded', device_name)
             .limit(batch_size)
             .update_all(import_status: "taked #{random_string}")
   end

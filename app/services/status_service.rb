@@ -22,6 +22,6 @@ class StatusService < ApplicationService
   def condition_array
     return ["import_status = ?", 'in_progress'] if check_all
 
-    ["import_status = ? AND import_device = ?", 'in_progress', import_device]
+    ["import_status = ? AND import_device = ?", 'in_progress', device_name]
   end
 end

@@ -1,9 +1,9 @@
 class ApplicationService
   attr_reader :batch_size
-  attr_reader :import_device
+  attr_reader :device_name
 
   def initialize(...)
-    @import_device = ENV.fetch('DEVICE_NAME')
+    @device_name = ENV.fetch('DEVICE_NAME')
   end
 
   def self.call(*, &)

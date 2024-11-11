@@ -1,6 +1,5 @@
 class DownloadService < ApplicationService
   attr_reader :file_size_limit
-  attr_reader :import_device
   attr_reader :record_id
   
   def initialize(batch_size = 5, size_limit = 100, id = nil)
@@ -18,7 +17,7 @@ class DownloadService < ApplicationService
   private
 
   def mark_rows
-    params = { import_status: 'downloading', import_device: }
+    params = { import_status: 'downloading', import_device: device_name }
 
     Template.where(condition_array)
             .limit(batch_size)
@@ -28,7 +27,7 @@ class DownloadService < ApplicationService
   def download_files
     s3_client = S3Client.new
 
-    Template.where("import_status = ? AND import_device = ?", 'downloading', import_device).limit(batch_size).each do |template|
+    Template.where("import_status = ? AND import_device = ?", 'downloading', device_name).limit(batch_size).each do |template|
       tmp_file = "./tmp/#{template.id}.psd"
       s3_file = "#{template.s3_key}document_0.psd"
 

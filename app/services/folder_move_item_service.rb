@@ -28,6 +28,6 @@ class FolderMoveItemService < ApplicationService
   def condition_array
     return ["import_status = ?", 'success'] if check_all
 
-    ["import_status = ? AND import_device = ?", 'success', import_device]
+    ["import_status = ? AND import_device = ?", 'success', device_name]
   end
 end
