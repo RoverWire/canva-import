@@ -4,7 +4,7 @@ namespace :folder do
     # Time frame if token refresh
     sleep 2
     args.with_defaults(batch_size: 80, check_all: false)
-    FolderMoveItemService.call(args[:batch_size], args[:check_all])
+    Imports::FolderMoveItemService.call(args[:batch_size], args[:check_all])
   end
 
   namespace :move do
