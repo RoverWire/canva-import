@@ -16,7 +16,7 @@ module Exports
     private
 
     def mark_rows
-      params = { export_status: 'initializing', import_device: device_name }
+      params = { export_status: 'initializing', export_device: device_name }
   
       Template.where(condition_array)
               .limit(batch_size)
@@ -32,7 +32,7 @@ module Exports
 
     def create_jobs
       canva_export = Canva::Export.new
-      Template.where("export_status = ? AND import_device = ?", 'initializing', device_name).limit(batch_size).each do |template|
+      Template.where("export_status = ? AND export_device = ?", 'initializing', device_name).limit(batch_size).each do |template|
         response = canva_export.create(template.canva_design_id)
         process_export_response(response, template)
       end
