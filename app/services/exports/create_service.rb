@@ -24,7 +24,7 @@ module Exports
     end
 
     def condition_array
-      return ["export_status = ?", 'waiting'] unless record_id
+      return ["export_status = ? AND size >= ?", 'waiting', 200] unless record_id
   
       @batch_size = 1
       ["id = ?", record_id]
