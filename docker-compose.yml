@@ -3,7 +3,7 @@ services:
     image: postgres:17.0-alpine
     container_name: canva-import-postgres
     ports:
-      - "5432:5432"
+      - 5432:5432
     environment:
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASS}
@@ -27,7 +27,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - "3000:3000"
+      - 3000:3000
     env_file: .env
     environment:
       RAILS_ENV: ${RAILS_ENV}
