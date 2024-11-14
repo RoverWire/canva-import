@@ -24,4 +24,12 @@ class S3Client
 
     object
   end
+
+  def upload_from_url(url, upload_path)
+    object = @client.object(upload_path)
+
+    File.open(URI.open(url), 'rb') do |file|
+      object.put(body: file)
+    end
+  end
 end
