@@ -5,7 +5,7 @@ module Canva
       load_configuration_values
     end
 
-    def create(design_id, type = 'png', export_quality = 'pro')
+    def create(design_id, type = 'png', export_quality = 'regular')
       body = { design_id:, format: { type:, export_quality: } }
 
       config_url('/v1/exports')
