@@ -3,7 +3,7 @@ namespace :export do
   task :create, [:batch_size, :record_id] do |task, args|
     # Time frame if token refresh
     # sleep 2
-    args.with_defaults(batch_size: 15, record_id: nil)
+    args.with_defaults(batch_size: 10, record_id: nil)
     Exports::CreateService.call(args[:batch_size], args[:record_id])
   end
 
@@ -33,7 +33,7 @@ namespace :export do
   task :upload, [:batch_size] do |task, args|
     # Time frame if token refresh
     # sleep 2
-    args.with_defaults(batch_size: 15)
+    args.with_defaults(batch_size: 10)
     Exports::UploadService.call(args[:batch_size])
   end
 end

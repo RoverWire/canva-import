@@ -29,20 +29,15 @@ end
 
 # Every minute
 every '* * * * *' do
-  rake 'template:download'
+  rake 'export:create'
 end
 
 # Every minute
 every '* * * * *' do
-  rake '-m template:upload'
+  rake 'export:status'
 end
 
-# Every second minute
-every '*/2 * * * *' do
-  rake 'template:status'
-end
-
-# Every third minute
-every '*/3 * * * *' do
-  rake 'folder:move'
+# Every minute
+every '* * * * *' do
+  rake 'export:upload'
 end
