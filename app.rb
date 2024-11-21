@@ -19,16 +19,17 @@ helpers do
   def update_code(code)
     return false unless code
 
-    Configuration.first.update!(canva_auth_code: code)
+    Configuration.find(ENV.fetch('CONFIGURATION_ID', 1)).update!(canva_auth_code: code)
   end
 
   def get_access_token
     response = Canva::Token.new.generate
     body = JSON.parse(response.body)
+    configuration_id = ENV.fetch('CONFIGURATION_ID', 1)
 
     redirect "/error?error=#{body['error_description']}" if body['error']
 
-    Configuration.first.update!(canva_access_token: body['access_token'], canva_refresh_token: body['refresh_token'])
+    Configuration.find(configuration_id).update!(canva_access_token: body['access_token'], canva_refresh_token: body['refresh_token'])
   end
 
   def get_stats
