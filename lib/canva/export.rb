@@ -2,7 +2,6 @@ module Canva
   class Export < Base
     def initialize
       super
-      load_configuration_values
     end
 
     def create(design_id, type = 'png', export_quality = 'regular')

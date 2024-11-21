@@ -3,7 +3,7 @@ module Canva
     attr_reader :code_challenge
 
     def initialize
-      super
+      super(avoid_load_configuration: true)
       process_code_challenge
     end
 

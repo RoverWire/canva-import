@@ -13,12 +13,14 @@ module Canva
 
     API_BASE_URL = 'https://api.canva.com/rest'.freeze
 
-    def initialize
+    def initialize(avoid_load_configuration: false)
       @app_scope = ENV.fetch('CANVA_APP_SCOPE')
       @client_id = ENV.fetch('CANVA_CLIENT_ID')
       @client_secret = ENV.fetch('CANVA_CLIENT_SECRET')
       @code_verifier = ENV.fetch('CANVA_CODE_VERIFIER')
       @redirect_uri = ENV.fetch('CANVA_REDIRECT_URI')
+
+      load_configuration_values unless avoid_load_configuration
     end
 
     protected
@@ -30,7 +32,7 @@ module Canva
     end
 
     def load_configuration_values
-      record = Configuration.first
+      record = Configuration.find(ENV.fetch('CONFIGURATION_ID', 1))
       @access_token = record.canva_access_token
       @auth_code = record.canva_auth_code
       @refresh_token = record.canva_refresh_token

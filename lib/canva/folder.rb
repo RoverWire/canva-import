@@ -4,7 +4,6 @@ module Canva
 
     def initialize
       super
-      load_configuration_values
       @default_folder = ENV.fetch('CANVA_FOLDER_ID')
     end
 

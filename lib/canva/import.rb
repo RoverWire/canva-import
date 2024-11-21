@@ -2,7 +2,6 @@ module Canva
   class Import < Base
     def initialize
       super
-      load_configuration_values
     end
 
     def create(file_path, file_name, file_type = 'image/vnd.adobe.photoshop')

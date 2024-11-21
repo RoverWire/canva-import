@@ -5,7 +5,6 @@ module Canva
 
     def initialize
       super
-      load_configuration_values
       config_url('/v1/oauth/token')
 
       @authorization = authorization_basic
