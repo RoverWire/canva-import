@@ -3,8 +3,8 @@ module Canva
     attr_reader :authorization
     attr_reader :content_type
 
-    def initialize
-      super
+    def initialize(configuration_id = nil)
+      super(configuration_id:)
       config_url('/v1/oauth/token')
 
       @authorization = authorization_basic
